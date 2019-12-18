@@ -12,7 +12,7 @@ jobs:
       - checkout
       - run:
           name: install dependencies
-          command: pip3 install -r requirements.txt
+          command: pip3 install --user -r requirements.txt
       - run:
           name: run tests
           command: /bin/sh go.sh test
