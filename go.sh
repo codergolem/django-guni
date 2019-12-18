@@ -10,6 +10,7 @@ task_build_and_push() {
   export TAG="1"
   task_install
   docker build -t us.gcr.io/$GOOGLE_PROJECT_ID/$IMAGE_NAME -t us.gcr.io/$GOOGLE_PROJECT_ID/$IMAGE_NAME:$TAG .
+  docker push us.gcr.io/$GOOGLE_PROJECT_ID/$IMAGE_NAME:$TAG
 }
 
 task_test() {
