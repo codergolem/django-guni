@@ -17,6 +17,9 @@ install_kubectl() {
 task_deploy() {
   install_kubectl
   authenticate_in_gcloud
+  gcloud container clusters get-credentials gke-sample-cluster
+  kubectl create -f sample-deployment.yaml
+  kubectl create -f sample-service.yaml
 }
 
 task_build_and_push() {

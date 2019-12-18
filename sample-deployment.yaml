@@ -1,0 +1,16 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: mariopage
+spec:
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: mariopage
+    spec:
+      containers:
+        - name: mariopage
+          image: us.gcr.io/playground-261801/django-guni:1
+          ports:
+            - containerPort: 8080

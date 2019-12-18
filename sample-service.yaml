@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: mariopage
+spec:
+  ports:
+    - port: 80
+      targetPort: 8080
+  selector:
+    app: mariopage
+  type: LoadBalancer
