@@ -31,6 +31,6 @@ workflows:
   build_test_deploy:
     jobs:
       - build_test
-      - build_and_push_image
+      - build_and_push_image:
           requires:
             - build_test
