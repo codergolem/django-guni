@@ -26,6 +26,13 @@ jobs:
       - run:
           name: Build docker image and push to gcr
           command: /bin/sh go.sh build_and_push
+  deploy:
+    docker:
+      - image: python:3.7-alpine
+    steps:
+      - run:
+          name: Deploy to GKE
+          command: /bin/sh go.sh deploy
 
 workflows:
   build_test_deploy:
@@ -34,3 +41,6 @@ workflows:
       - build_and_push_image:
           requires:
             - build_test
+      - deploy:
+          requires:
+            - build_and_push_image

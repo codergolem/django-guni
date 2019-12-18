@@ -2,15 +2,36 @@
 
 set -e
 
+GCLOUD_KEY_FILE='gcloud-service-key.json'
+
+authenticate_in_gcloud() {
+  pip3 install --user gcloud
+  echo $GCLOUD_SERVICE_KEY | gcloud auth activate-service-account --key-file=-
+  gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
+  gcloud --quiet config set compute/zone ${GOOGLE_COMPUTE_ZONE}
+}
+
+install_kubectl() {
+  apk update & apk add curl
+  curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl
+  chmod +x ./kubectl
+  mv ./kubectl /usr/local/bin/kubectl
+}
+
+task_deploy() {
+  install_kubectl
+  authenticate_in_gcloud
+}
+
 task_build_and_push() {
 
-  echo ${GCP_PROJECT_KEY} | base64 --decode --ignore-garbage > $HOME/gcloud-service-key.json
-  export GOOGLE_CLOUD_KEYS="$(cat $HOME/gcloud-service-key.json)"
+  echo ${GCP_PROJECT_KEY} | base64 --decode --ignore-garbage > $HOME/$GCLOUD_KEY_FILE
+  export GOOGLE_CLOUD_KEYS="$(cat $HOME/$GCLOUD_KEY_FILE)"
   export IMAGE_NAME="django-guni"
   export TAG="1"
   task_install
   docker build -t us.gcr.io/$GOOGLE_PROJECT_ID/$IMAGE_NAME -t us.gcr.io/$GOOGLE_PROJECT_ID/$IMAGE_NAME:$TAG .
-  cat $HOME/gcloud-service-key.json | docker login -u _json_key --password-stdin https://us.gcr.io
+  cat $HOME/$GCLOUD_KEY_FILE | docker login -u _json_key --password-stdin https://us.gcr.io
   docker push us.gcr.io/$GOOGLE_PROJECT_ID/$IMAGE_NAME:$TAG
 }
 
