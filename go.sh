@@ -27,7 +27,7 @@ task_build_and_push() {
   echo ${GCP_PROJECT_KEY} | base64 --decode --ignore-garbage > $HOME/$GCLOUD_KEY_FILE
   export GOOGLE_CLOUD_KEYS="$(cat $HOME/$GCLOUD_KEY_FILE)"
   export IMAGE_NAME="django-guni"
-  export TAG="1"
+  export TAG="2"
   task_install
   docker build -t us.gcr.io/$GOOGLE_PROJECT_ID/$IMAGE_NAME -t us.gcr.io/$GOOGLE_PROJECT_ID/$IMAGE_NAME:$TAG .
   cat $HOME/$GCLOUD_KEY_FILE | docker login -u _json_key --password-stdin https://us.gcr.io
