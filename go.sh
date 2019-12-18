@@ -13,6 +13,10 @@ task_test() {
     python manage.py test
 }
 
+task_install() {
+     pip3 install --user -r requirements.txt
+}
+
 main() {
   local task=$1
 
