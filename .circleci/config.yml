@@ -28,7 +28,7 @@ jobs:
           command: /bin/sh go.sh build_and_push
   deploy:
     docker:
-      - image: python:3.7-alpine
+      - image: gcr.io/google.com/cloudsdktool/cloud-sdk:alpine
     steps:
       - checkout
       - run:

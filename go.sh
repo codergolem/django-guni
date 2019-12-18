@@ -5,17 +5,13 @@ set -e
 GCLOUD_KEY_FILE='gcloud-service-key.json'
 
 authenticate_in_gcloud() {
-  pip3 install --user gcloud
   echo $GCLOUD_SERVICE_KEY | gcloud auth activate-service-account --key-file=-
   gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
   gcloud --quiet config set compute/zone ${GOOGLE_COMPUTE_ZONE}
 }
 
 install_kubectl() {
-  apk update & apk add curl
-  curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl
-  chmod +x ./kubectl
-  mv ./kubectl /usr/local/bin/kubectl
+  gcloud components install kubectl
 }
 
 task_deploy() {
