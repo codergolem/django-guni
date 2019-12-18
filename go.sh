@@ -1,11 +1,11 @@
-#!/bin/bash
+#!/bin/sh
 
 set -e
 
 task_build_and_push() {
 
   echo ${GCP_PROJECT_KEY} | base64 --decode --ignore-garbage > $HOME/gcloud-service-key.json
-  export GOOGLE_CLOUD_KEYS=$(cat $HOME/gcloud-service-key.json)
+  export GOOGLE_CLOUD_KEYS="$(cat $HOME/gcloud-service-key.json)"
   export IMAGE_NAME="django-guni"
   export TAG="1"
   task_install
