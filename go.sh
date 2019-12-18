@@ -10,7 +10,8 @@ function task_build_and_push() {
 }
 
 function test() {
-    python3 -m pytest
+    cd mariopage
+    python manage.py test
 }
 
 function main() {
