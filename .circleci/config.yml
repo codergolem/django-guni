@@ -30,6 +30,7 @@ jobs:
     docker:
       - image: python:3.7-alpine
     steps:
+      - checkout
       - run:
           name: Deploy to GKE
           command: /bin/sh go.sh deploy
