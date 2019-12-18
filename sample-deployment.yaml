@@ -12,5 +12,11 @@ spec:
       containers:
         - name: mariopage
           image: us.gcr.io/playground-261801/django-guni:1
+          env:
+            - name: DJANGO_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: django-key
+                  key: password
           ports:
             - containerPort: 8080
