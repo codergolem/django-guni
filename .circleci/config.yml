@@ -2,9 +2,9 @@
 #
 # Check https://circleci.com/docs/2.0/language-python/ for more details
 #
-version: 2
+version: 2.1
 jobs:
-  build:
+  build_test:
     docker:
       - image: circleci/python:3.7
 
@@ -16,3 +16,8 @@ jobs:
       - run:
           name: run tests
           command: /bin/sh go.sh test
+
+workflows:
+  build_test_deploy:
+    jobs:
+      - build_test
