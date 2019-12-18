@@ -3,9 +3,13 @@
 set -e
 
 task_build_and_push() {
-    docker build . -t django-guni
-    docker tag django-guni mariocastellanos/django-guni:2
-    docker push mariocastellanos/django-guni:2
+
+  echo ${GCP_PROJECT_KEY} | base64 --decode --ignore-garbage > $HOME/gcloud-service-key.json
+  export GOOGLE_CLOUD_KEYS=$(cat $HOME/gcloud-service-key.json)
+  export IMAGE_NAME="django-guni"
+  export TAG="1"
+  task_install
+  docker build -t us.gcr.io/$GOOGLE_PROJECT_ID/$IMAGE_NAME -t us.gcr.io/$GOOGLE_PROJECT_ID/$IMAGE_NAME:$TAG .
 }
 
 task_test() {
