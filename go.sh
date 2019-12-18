@@ -1,7 +1,6 @@
 #!/bin/sh
 
 set -e
-set -o pipefail
 
 function task_build_and_push() {
     docker build . -t django-guni
