@@ -11,7 +11,7 @@ spec:
     spec:
       containers:
         - name: mariopage
-          image: us.gcr.io/playground-261801/django-guni:2
+          image: us.gcr.io/playground-261801/django-guni:3
           env:
             - name: DJANGO_SECRET_KEY
               valueFrom:
